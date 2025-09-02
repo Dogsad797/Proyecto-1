@@ -1,10 +1,10 @@
 :root {
   --bg-color: #f7fafc;
-  --primary-color: #4f46e5; 
+  --primary-color: #4f46e5;
   --secondary-color: #3b82f6;
   --accent-color: #10b981;
   --muted-color: #9ca3af;
-  --text-color: #1f2937; 
+  --text-color: #1f2937;
   --card-bg-color: #ffffff;
   --hover-bg-color: rgba(79, 70, 229, 0.1);
   --border-radius: 10px;
@@ -38,7 +38,7 @@ a:hover {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 15px 20px;
 }
 
 header {
@@ -53,6 +53,8 @@ header .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten */
+  gap: 10px;
 }
 
 header .logo {
@@ -62,7 +64,7 @@ header .logo {
 
 header nav a {
   color: #fff;
-  margin: 0 15px;
+  margin: 0 10px;
   font-weight: 600;
 }
 
@@ -80,6 +82,11 @@ section {
   border-radius: var(--border-radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
 }
 
 .card h2 {
@@ -132,8 +139,11 @@ select {
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
-input[type="month"]:focus {
+input[type="month"]:focus,
+select:focus {
   border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 5px rgba(79, 70, 229, 0.3);
 }
 
 .grid {
@@ -142,26 +152,54 @@ input[type="month"]:focus {
 }
 
 .grid-2 {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .grid-3 {
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-  .grid-2 {
+  .grid-2,
+  .grid-3,
+  .grid-4 {
     grid-template-columns: 1fr;
   }
-  .grid-3 {
-    grid-template-columns: 1fr 1fr;
+
+  header .container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header nav {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  header nav a {
+    margin: 5px 10px;
   }
 }
 
 footer {
   background-color: var(--primary-color);
   color: white;
-  padding: 10px 0;
+  padding: 15px 0;
   text-align: center;
   margin-top: 20px;
 }
@@ -174,7 +212,7 @@ footer a:hover {
   text-decoration: underline;
 }
 
-
+/* Modal Dialog (for calendar events) */
 dialog {
   background-color: #fff;
   padding: 20px;
