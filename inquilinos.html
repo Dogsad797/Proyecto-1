@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alamedas de Santa Ana • Consulta de Inquilinos</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/sql-wasm.js" defer></script>
+  <script src="assets/app.js" defer></script>
+</head>
+<body data-page="tenants">
+  
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="brand">
+      <div class="logo"></div>
+      <h1>Alamedas de Santa Ana</h1>
+    </div>
+    <nav class="menu">
+      <a href="index.html" class="" id="link-home">Inicio</a>
+      <a href="calendario.html" id="link-cal">Calendario</a>
+      <a href="inquilinos.html" id="link-tenants">Consulta de Inquilinos</a>
+      <button class="btn" id="btn-load-db" title="Cargar base de datos (.db) localmente">
+        📂 Cargar BD
+      </button>
+      <input id="db-upload" type="file" accept=".db,.sqlite,.sqlite3" style="display:none">
+    </nav>
+  </div>
+</header>
+<script>
+  // highlight active link
+  const page = document.body?.dataset?.page;
+  if(page){
+    const ids = {home:"link-home", calendar:"link-cal", tenants:"link-tenants"};
+    const link = document.getElementById(ids[page]);
+    if(link) link.classList.add("active");
+  }
+</script>
+
+  <main class="container grid grid-2" style="margin-top:18px">
+    <section class="card">
+      <h2>Consulta de cuota de mantenimiento</h2>
+      <p class="helper">Ingrese sus datos. Validamos contra la tabla <b>Inquilino</b> y consultamos el pago en <b>PagoDeCuotas</b> para el mes/año actual.</p>
+      <form id="tenant-form" class="grid grid-2" novalidate>
+        <div>
+          <label for="dpi">DPI (13 dígitos)</label>
+          <input id="dpi" name="dpi" type="text" inputmode="numeric" pattern="\\d{13}" required placeholder="0000000000000" minlength="13" maxlength="13">
+        </div>
+        <div>
+          <label for="casa">Número de Casa</label>
+          <input id="casa" name="casa" type="number" min="1" step="1" required placeholder="Ej. 12">
+        </div>
+        <div>
+          <label for="nombre">Primer Nombre</label>
+          <input id="nombre" name="nombre" type="text" required placeholder="Ej. María">
+        </div>
+        <div>
+          <label for="apellido">Primer Apellido</label>
+          <input id="apellido" name="apellido" type="text" required placeholder="Ej. García">
+        </div>
+        <div>
+          <label for="nacimiento">Fecha de Nacimiento</label>
+          <input id="nacimiento" name="nacimiento" type="date" required>
+        </div>
+        <div style="align-self:end">
+          <button class="btn" type="submit">Consultar</button>
+        </div>
+      </form>
+      <p id="tenant-msg" class="helper" style="margin-top:10px"></p>
+    </section>
+
+    <section class="card">
+      <h2>Historial de pagos</h2>
+      <div class="grid grid-2">
+        <div>
+          <label for="start">Desde (mes)</label>
+          <input id="start" type="month">
+        </div>
+        <div>
+          <label for="end">Hasta (mes)</label>
+          <input id="end" type="month">
+        </div>
+        <div>
+          <label for="casa">Número de Casa</label>
+          <input id="casa-hist" type="number" placeholder="Ej. 12" oninput="document.getElementById('casa').value=this.value">
+        </div>
+        <div style="align-self:end">
+          <button id="btn-history" class="btn" type="button">Consultar historial</button>
+        </div>
+      </div>
+      <div id="history" style="display:none;margin-top:12px">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Casa</th><th>Año</th><th>Mes</th><th>Periodo</th><th>Fecha de pago</th>
+            </tr>
+          </thead>
+          <tbody id="history-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer class="container">© 2025 Alamedas de Santa Ana</footer>
+</body>
+</html>

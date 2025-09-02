@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alamedas de Santa Ana • Calendario</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/sql-wasm.js" defer></script>
+  <script src="assets/app.js" defer></script>
+</head>
+<body data-page="calendar">
+  
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="brand">
+      <div class="logo"></div>
+      <h1>Alamedas de Santa Ana</h1>
+    </div>
+    <nav class="menu">
+      <a href="index.html" class="" id="link-home">Inicio</a>
+      <a href="calendario.html" id="link-cal">Calendario</a>
+      <a href="inquilinos.html" id="link-tenants">Consulta de Inquilinos</a>
+      <button class="btn" id="btn-load-db" title="Cargar base de datos (.db) localmente">
+        📂 Cargar BD
+      </button>
+      <input id="db-upload" type="file" accept=".db,.sqlite,.sqlite3" style="display:none">
+    </nav>
+  </div>
+</header>
+<script>
+  // highlight active link
+  const page = document.body?.dataset?.page;
+  if(page){
+    const ids = {home:"link-home", calendar:"link-cal", tenants:"link-tenants"};
+    const link = document.getElementById(ids[page]);
+    if(link) link.classList.add("active");
+  }
+</script>
+
+  <main class="container" style="margin-top:18px">
+    <section class="card">
+      <div class="cal-controls">
+        <button class="btn" id="prev">◀ Mes anterior</button>
+        <div class="btn" id="month-label">Mes Año</div>
+        <button class="btn" id="next">Mes siguiente ▶</button>
+        <input id="month" class="select" type="month" aria-label="Seleccionar mes">
+      </div>
+      <div id="calendar-grid" class="calendar" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <dialog id="evt-dialog" class="card" style="border:none;max-width:560px">
+    <h2 id="dlg-title"></h2>
+    <div class="helper" id="dlg-date"></div>
+    <p id="dlg-desc" style="margin-top:8px"></p>
+    <div style="display:flex;justify-content:flex-end;margin-top:12px">
+      <button class="btn" onclick="document.getElementById('evt-dialog').close()">Cerrar</button>
+    </div>
+  </dialog>
+
+  <footer class="container">© 2025 Alamedas de Santa Ana</footer>
+</body>
+</html>
