@@ -1,10 +1,10 @@
 :root {
   --bg-color: #f7fafc;
-  --primary-color: #4f46e5; /* Color principal */
-  --secondary-color: #3b82f6; /* Azul más suave */
-  --accent-color: #10b981; /* Verde para acentos */
+  --primary-color: #4f46e5; 
+  --secondary-color: #3b82f6;
+  --accent-color: #10b981;
   --muted-color: #9ca3af;
-  --text-color: #1f2937; /* Texto oscuro */
+  --text-color: #1f2937; 
   --card-bg-color: #ffffff;
   --hover-bg-color: rgba(79, 70, 229, 0.1);
   --border-radius: 10px;
@@ -174,7 +174,7 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Modal Dialog (for calendar events) */
+
 dialog {
   background-color: #fff;
   padding: 20px;
